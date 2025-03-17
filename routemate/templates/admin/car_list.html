@@ -1,0 +1,161 @@
+{% block content %}
+<div class="container mt-5">
+    <div class="d-flex justify-content-between mb-4">
+        <!-- Back button -->
+        <a href="{% url 'admin_home' %}" class="btn btn-back btn-sm">Back</a>
+        
+        <!-- Add Car button -->
+        <a href="{% url 'add_car' %}" class="btn btn-add btn-sm">Add Car</a>
+    </div>
+
+    <h2 class="text-center mb-4">Car List</h2>
+    
+    <table id="carTable" class="table table-bordered table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Brand</th>
+                <th>Model</th>
+                <th>Type</th>
+                <th>Price</th>
+                <th>Capacity</th>
+                <th>Available</th>
+                <th>Images</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for car in cars %}
+            <tr>
+                <td>{{ car.vehicle_id }}</td>
+                <td>{{ car.name }}</td>
+                <td>{{ car.brand }}</td>
+                <td>{{ car.model }}</td>
+                <td>{{ car.get_vehicle_type_display }}</td>
+                <td>${{ car.price }}</td>
+                <td>{{ car.capacity }}</td>
+                <td>{% if car.is_available %}<span class="badge bg-success">Available</span>{% else %}<span class="badge bg-danger">Not Available</span>{% endif %}</td>
+                <td>
+                    <!-- Display car images -->
+                    {% if car.image1 %}
+                    <img src="{{ car.image1.url }}" alt="{{ car.name }} - Image 1" class="img-thumbnail" width="100">
+                    {% endif %}
+                    {% if car.image2 %}
+                    <img src="{{ car.image2.url }}" alt="{{ car.name }} - Image 2" class="img-thumbnail" width="100">
+                    {% endif %}
+                    {% if car.image3 %}
+                    <img src="{{ car.image3.url }}" alt="{{ car.name }} - Image 3" class="img-thumbnail" width="100">
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{% url 'edit_car' car.vehicle_id %}" class="btn btn-primary btn-sm">Edit</a>
+                    <a href="{% url 'delete_car' car.vehicle_id %}" class="btn btn-danger btn-sm" 
+                       onclick="return confirm('Are you sure you want to delete this car?');">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Include DataTables initialization -->
+<script>
+    $(document).ready(function() {
+        $('#carTable').DataTable();
+    });
+</script>
+
+<!-- Styles for the page -->
+<style>
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .table th, .table td {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .table th {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .table td {
+        font-size: 0.9rem;
+    }
+
+    .table img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .btn {
+        margin: 5px;
+    }
+
+    .img-thumbnail {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        margin: 5px;
+    }
+
+    /* Styling for DataTable */
+    #carTable_wrapper {
+        margin-top: 20px;
+    }
+
+    #carTable_filter {
+        float: right;
+        padding: 10px;
+    }
+
+    /* Responsive styling for smaller screens */
+    @media (max-width: 768px) {
+        .table td, .table th {
+            font-size: 0.8rem;
+        }
+
+        .btn {
+            padding: 5px 10px;
+        }
+    }
+
+    /* Custom styles for buttons */
+    .btn-back {
+        background-color: #6c757d; /* Gray background */
+        color: white;
+        border-radius: 4px;
+        padding: 10px 20px;
+        text-decoration: none;
+    }
+
+    .btn-back:hover {
+        background-color: #5a6268; /* Darker gray on hover */
+        color: white;
+    }
+
+    .btn-add {
+        background-color: #28a745; /* Green background */
+        color: white;
+        border-radius: 4px;
+        padding: 10px 20px;
+        text-decoration: none;
+    }
+
+    .btn-add:hover {
+        background-color: #218838; /* Darker green on hover */
+        color: white;
+    }
+
+    /* Custom styling for badges */
+    .badge {
+        font-size: 0.8rem;
+        padding: 5px 10px;
+        border-radius: 12px;
+    }
+</style>
+
+{% endblock %}

@@ -1,0 +1,158 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - RouteMate</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 16px;
+            color: #34495e;
+            line-height: 1.6;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: #34495e;
+        }
+
+        .form-control {
+            font-size: 16px;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+        }
+
+        .btn-primary {
+            background-color: #52b788;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #4a9e6e;
+        }
+
+        .modal-content {
+            border-radius: 8px;
+        }
+
+        .modal-header {
+            background-color: #52b788;
+            color: white;
+        }
+
+        .modal-footer {
+            border-top: none;
+        }
+
+        .modal-body {
+            font-size: 16px;
+        }
+
+        .modal-title {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- <section>
+        {% for message in messages %}
+            <h5>
+                <div class=" text-danger text-center my-2" style="font-size: medium;">
+                    {{ message }}
+                </div>
+            </h5>
+        {% endfor %}
+    </section> -->
+    <div class="container mt-5">
+        <h2>Payment Confirmation</h2>
+        <p><strong>User:</strong> {{ booking.user.username }}</p> <!-- Display the user's name -->
+        <p><strong>Amount to Pay:</strong> ${{ booking.total_amount }}</p> <!-- Display the amount to be paid -->
+        
+        <h5>Cancellation Policy:</h5>
+        <p>If you cancel your booking within 2 days (48 hours) of the scheduled start date, you will be charged 50% of the total booking cost.</p>
+
+        <form id="paymentForm" method="POST" action="{% url 'payment' booking.booking_id %}">
+            {% csrf_token %}
+            
+            <!-- Display the amount field -->
+            <div class="form-group">
+                <label for="id_amount">Amount</label>
+                <input type="text" name="amount" value="{{ form.amount.value }}" class="form-control" id="id_amount" readonly>
+            </div>
+        
+            <!-- Display the payment method field -->
+            <div class="form-group">
+                <label for="id_payment_method">Payment Method</label>
+                {{ form.payment_method }}
+            </div>
+            
+            <button id="make-payment" type="submit" class="btn btn-primary">Make Payment</button>
+        </form>
+        
+    </div>
+
+    <!-- Modal for payment confirmation -->
+    <!-- Modal for payment confirmation -->
+<div class="modal fade" id="paymentConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="paymentConfirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="paymentConfirmationModalLabel">Payment Confirmation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Your booking is confirmed. Your vehicle will be available at the requested time and location. Please remember to bring a copy of your driver's license, as required by company policy.
+            </div>
+            <div class="modal-footer">
+                <!-- Button to trigger PDF download -->
+                <a href="{% url 'generate_payment_receipt' booking.booking_id %}" class="btn btn-primary">Download Receipt</a>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a href="{% url 'home' %}" class="btn btn-info">Back to Home</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script>
+        $(document).ready(function() {
+            $('#make-payment').on('click', function() {
+                $('#paymentConfirmationModal').modal('show');
+            });
+        });
+    </script>
+</body>
+</html>

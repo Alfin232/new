@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+    <title>Admin Login - RouteMate</title>
+    <link rel="shortcut icon" href="{% static 'images/favourite_icon.png' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+    {% include 'header.html' %}
+
+    <!-- Breadcrumb Section -->
+    <section class="breadcrumb_section text-center clearfix">
+        <div class="page_title_area has_overlay d-flex align-items-center clearfix" data-bg-image="{% static 'images/breadcrumb_bg_09.jpg' %}">
+            <div class="overlay"></div>
+            <div class="container" data-aos="fade-up" data-aos-delay="100">
+                <h1 class="page_title text-white mb-0">Admin Login</h1>
+            </div>
+        </div>
+        <div class="breadcrumb_nav clearfix" data-bg-color="#F2F2F2">
+            <div class="container">
+                <ul class="ul_li clearfix">
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li>Admin Login</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Section -->
+    <section class="login_section sec_ptb_100 clearfix">
+        <div class="container" style="background-color: rgb(242, 242, 242);">
+            <div class="login_card mb-0" data-bg-color="#F2F2F2" data-aos="fade-up" data-aos-delay="100">
+                <div class="row align-items-center">
+                    <!-- Login Image -->
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <div class="login_image" data-aos="fade-up" data-aos-delay="300">
+                            <img src="{% static 'images/about_img_03.jpg' %}" alt="Login Image">
+                        </div>
+                    </div>
+                    <!-- Login Form -->
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <div class="login_form" data-aos="fade-up" data-aos-delay="500">
+                            <h3 class="form_title text-center">Admin Login</h3>
+                            <form method="post">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <label for="email">Email:</label>
+                                    <input type="email" name="email" class="form-control" required placeholder="Enter your email">
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password:</label>
+                                    <input type="password" name="password" class="form-control" required placeholder="Enter your password">
+                                </div>
+                                <button type="submit" class="custom_btn bg_default_red text-uppercase">Login
+                                    <img src="{% static 'images/icon_01.png' %}" alt="icon_not_found">
+                                </button>
+                            </form>
+                            {% comment %} <div class="mt-4 text-center">
+                                <a href="{% url 'forgot_password' %}">Forgot your password?</a>
+                            </div>
+                            <div class="mt-4 text-center">
+                                Don’t have an account? <a href="{% url 'register' %}">Register here</a>
+                            </div> {% endcomment %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% include 'footer.html' %}
+
+    <script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+</body>
+</html>

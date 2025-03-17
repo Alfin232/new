@@ -1,0 +1,79 @@
+{% load static %}
+<header class="header_section sticky text-white clearfix">
+    <div class="header_bottom clearfix">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-3 col-md-6 col-sm-6 col-6">
+                    <div class="brand_logo">
+                        {% comment %} <a href="{% url 'home' %}">
+                             <img src="{% static 'images/logo2.png' %}" 
+                                 srcset="{% static 'images/logo2.png' %} 2x" alt="RouteMate Logo"> 
+                        </a> {% endcomment %}
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12">
+                    <nav class="main_menu clearfix">
+                        <ul class="ul_li_center clearfix">
+                            <li><a href="{% url 'home' %}">Home</a></li>
+                            <li><a href="{% url 'gallery' %}">Our Cars</a></li>
+                            {% comment %} <li><a href="{% url 'cars' %}">Cars</a></li> {% endcomment %}
+                            {% comment %} <li><a href="{% url 'about' %}">About</a></li> {% endcomment %}
+                            <!-- <li><a href="{% url 'booking_history' %}">My bookings</a></li> -->
+                            <li><a href="{% url 'reservation' %}">Reservation</a></li>
+                            <li><a href="{% url 'contact' %}">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-6">
+                    <ul class="header_action_btns ul_li_right clearfix">
+                        <li>
+                            <button type="button" class="search_btn" data-toggle="collapse"
+                                data-target="#collapse_search_body" aria-expanded="false"
+                                aria-controls="collapse_search_body"><i class="fal fa-search"></i></button>
+                        </li>
+                        {% comment %} <li>
+                            <button type="button" class="cart_btn">
+                                <a href="{% url 'cart' %}"><i class="fal fa-shopping-cart"></i></a>
+                            </button>
+                            <span class="cart_counter bg_default_red"></span>
+                        </li> {% endcomment %}
+                        <li class="dropdown">
+                            <button type="button" class="user_btn" data-toggle="dropdown">
+                                <i class="fal fa-user"></i>
+                            </button>
+                            <div class="user_dropdown dropdown-menu">
+                                {% if user.is_authenticated %}
+                                    <div class="profile_info clearfix">
+                                        <div class="user_content">
+                                            <h4 class="user_name">{{ user.username }}</h4>
+                                        </div>
+                                    </div>
+                                    <ul class="ul_li_block clearfix">
+                                        <li><a href="{% url 'profile' %}"><i class="fal fa-user-circle"></i> Profile</a></li>
+                                        {% comment %} <li><a href="{% url 'booking_history' %}"><i class="fal fa-user-circle">My bookings</a></li> {% endcomment %}
+                                        <li><a href="{% url 'logout' %}"><i class="fal fa-sign-out"></i> Logout</a></li>
+                                    </ul>
+                                {% else %}
+                                    <ul class="ul_li_block clearfix">
+                                        <li><a href="{% url 'login' %}"><i class="fal fa-sign-in"></i> Login</a></li>
+                                        <li><a href="{% url 'register' %}"><i class="fal fa-user-plus"></i> Register</a></li>
+                                        <li><a href="{% url 'admin_login' %}"><i class="fal fa-user-plus"></i> Login As Admin</a></li>
+
+                                    </ul>
+                                {% endif %}
+                            </div>
+                        </li>
+                    </ul>
+                    
+                    <!-- Search Form -->
+                    <div class="collapse" id="collapse_search_body">
+                        <form method="GET" action="{% url 'gallery' %}" class="search_form">
+                            <input type="text" name="search" placeholder="Search for vehicles..." value="{{ request.GET.search|default:'' }}"  required>
+                            <button type="submit"><i class="fal fa-search"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

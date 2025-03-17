@@ -1,0 +1,140 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Register - RouteMate</title>
+    <link rel="shortcut icon" href="{% static 'images/favourite_icon.png' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    {% include 'header.html' %}
+
+    <section class="breadcrumb_section text-center clearfix">
+        <div class="page_title_area has_overlay d-flex align-items-center clearfix" data-bg-image="{% static 'images/breadcrumb_bg_09.jpg' %}">
+            <div class="overlay"></div>
+            <div class="container">
+                <h1 class="page_title text-white mb-0">Register</h1>
+            </div>
+        </div>
+        <div class="breadcrumb_nav clearfix" data-bg-color="#F2F2F2">
+            <div class="container">
+                <ul class="ul_li clearfix">
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li>Register</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="register_section sec_ptb_100 clearfix">
+        <div class="container">
+            <div class="register_card mb-0" data-bg-color="#F2F2F2" data-aos="fade-up" data-aos-delay="100">
+                <div class="section_title mb_30 text-center">
+                    <h2 class="title_text mb-0 text-dark"><span>Register</span></h2>
+                </div>
+                {% if messages %}
+                    <div class="messages">
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row justify-content-lg-between">
+                        <!-- Left Column -->
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" data-aos="fade-up" data-aos-delay="500">
+                            <div class="form_item">
+                                <label for="{{ form.username.id_for_label }}">Username</label>
+                                {{ form.username }}
+                                {% if form.username.errors %}
+                                    <div class="text-danger" id="username-errors">{{ form.username.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="form_item">
+                                <label for="{{ form.email.id_for_label }}">Email</label>
+                                {{ form.email }}
+                                {% if form.email.errors %}
+                                    <div class="text-danger" id="email-errors">{{ form.email.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="form_item">
+                                <label for="{{ form.password1.id_for_label }}">Password</label>
+                                {{ form.password1 }}
+                                {% if form.password1.errors %}
+                                    <div class="text-danger" id="password1-errors">{{ form.password1.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="form_item">
+                                <label for="{{ form.password2.id_for_label }}">Confirm Password</label>
+                                {{ form.password2 }}
+                                {% if form.password2.errors %}
+                                    <div class="text-danger" id="password2-errors">{{ form.password2.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="form_item">
+                                <label for="{{ form.phone.id_for_label }}">Phone Number</label>
+                                {{ form.phone }}
+                                {% if form.phone.errors %}
+                                    <div class="text-danger" id="phone-errors">{{ form.phone.errors }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <!-- Right Column -->
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" data-aos="fade-up" data-aos-delay="700">
+                            <div class="form_item">
+                                <label for="{{ form.license_number.id_for_label }}">License Number</label>
+                                {{ form.license_number }}
+                                {% if form.license_number.errors %}
+                                    <div class="text-danger" id="license-number-errors">{{ form.license_number.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="form_item">
+                                <label for="{{ form.address.id_for_label }}">Address</label>
+                                {{ form.address }}
+                                {% if form.address.errors %}
+                                    <div class="text-danger" id="address-errors">{{ form.address.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="form_item">
+                                <label for="{{ form.license_image.id_for_label }}">Upload License Image</label>
+                                {{ form.license_image }}
+                                {% if form.license_image.errors %}
+                                    <div class="text-danger" id="license-image-errors">{{ form.license_image.errors }}</div>
+                                {% endif %}
+                                {% if form.license_image.value %}
+                                    <p>Currently uploaded: <a href="{{ form.license_image.value.url }}" target="_blank">{{ form.license_image.value.name }}</a></p>
+                                {% endif %}
+                            </div>
+                            <div class="form_item">
+                                <label for="{{ form.profile_image.id_for_label }}">Upload Profile Image</label>
+                                {{ form.profile_image }}
+                                {% if form.profile_image.errors %}
+                                    <div class="text-danger" id="profile-image-errors">{{ form.profile_image.errors }}</div>
+                                {% endif %}
+                                {% if form.profile_image.value %}
+                                    <p>Currently uploaded: <a href="{{ form.profile_image.value.url }}" target="_blank">{{ form.profile_image.value.name }}</a></p>
+                                {% endif %}
+                            </div>
+                            <button type="submit" class="custom_btn bg_default_red text-uppercase mb-0">Register
+                                <img src="{% static 'images/icon_01.png' %}" alt="icon_not_found">
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    {% include 'footer.html' %}
+
+    <script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
+</body>
+</html>

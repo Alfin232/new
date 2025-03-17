@@ -1,0 +1,48 @@
+{% load static %}
+<style>
+    .footer_section {
+        background-color: rgba(139, 80, 80, 0.17);;
+    }
+</style>
+<footer class="footer_section">
+    <div class="container">
+        <div class="footer_widgets clearfix row pt-5 d-flex justify-content-center">
+            <div class="col-4">
+                <section class="ul_li_center">
+                    <div class="footer_widget about_widget">
+                        <a href="{% url 'home' %}">
+                            <img src="{% static 'images/logo2.png' %}" alt="RouteMate Logo">
+                        </a>
+                        <p>Discover the best car with RouteMate.</p>
+                    </div>
+                </section>
+            </div>
+            <div class="col-4">
+                <section>
+                    <div class="footer_widget menu_widget">
+                        <h4>Quick Links</h4>
+                        <ul class="ul_li_block">
+                            <li><a href="{% url 'home' %}"  class="text-dark">Home</a></li>
+                            {% comment %} <li><a href="{% url 'about' %}">About</a></li> {% endcomment %}
+                            <li><a href="{% url 'contact' %}" class="text-dark">Contact</a></li>
+                            {% comment %} <li><a href="{% url 'terms' %}">Terms of Service</a></li> {% endcomment %}
+                        </ul>
+                    </div>
+                </section>
+            </div>
+            <div class="col-4">
+                <section>
+                    <div class="footer_widget contact_widget">
+                        <h4>Contact Us</h4>
+                        <p><i class="fas fa-map-marker-alt"></i> Kattapana, Idukki, Kerala</p>
+                        <p><i class="fas fa-phone"></i> Phone: +91 9995456678</p>
+                        <p><i class="fas fa-envelope"></i> Email: alfin.24pmc111@mariancollege.org</p>
+                    </div>
+                </section>
+
+            </div>
+            <div class="footer_bottom ">
+                <p>&copy; 2024 RouteMate. All rights reserved.</p>
+            </div>
+        </div>
+</footer>
